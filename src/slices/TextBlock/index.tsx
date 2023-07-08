@@ -18,7 +18,6 @@ const TextBlock = ({ slice }: TextBlockProps): JSX.Element => {
       <div className="m-8 container xl mx-auto px-4 text-center text-3xl/loose">
       <PrismicRichText field={slice.primary.text} />
       </div>
-      Placeholder component for text_block (variation: {slice.variation}) Slices
     </section>
   );
 };
