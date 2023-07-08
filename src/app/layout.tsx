@@ -6,9 +6,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { asText } from "@prismicio/client";
 import { PrismicText } from "@prismicio/react";
-import { PrismicNextLink } from "@prismicio/next";
+import { PrismicNextLink, PrismicPreview } from "@prismicio/next";
 
-import { createClient, repositoryName } from "@/prismicio";
+import { createClient, repositoryName} from "@/prismicio";
 
 export async function generateMetadata(): Promise<Metadata> {
   const client = createClient();
@@ -32,6 +32,7 @@ export default async function RootLayout({
         {children}
         {/* @ts-expect-error Async Server Component */}
         <Footer />
+        <PrismicPreview repositoryName={repositoryName}/>
       </body>
     </html>
   );
