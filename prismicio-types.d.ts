@@ -5,69 +5,6 @@ import type * as prismic from "@prismicio/client";
 type Simplify<T> = {
   [KeyType in keyof T]: T[KeyType];
 };
-/** Content for Home documents */
-interface HomeDocumentData {
-  /**
-   * Slice Zone field in *Home*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: home.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
-   */
-  slices: prismic.SliceZone<HomeDocumentDataSlicesSlice>;
-  /**
-   * Meta Description field in *Home*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: home.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_description: prismic.KeyTextField;
-  /**
-   * Meta Image field in *Home*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: home.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  meta_image: prismic.ImageField<never>;
-  /**
-   * Meta Title field in *Home*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: home.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_title: prismic.KeyTextField;
-}
-/**
- * Slice for *Home → Slice Zone*
- *
- */
-type HomeDocumentDataSlicesSlice = never;
-/**
- * Home document from Prismic
- *
- * - **API ID**: `home`
- * - **Repeatable**: `false`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type HomeDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithoutUID<Simplify<HomeDocumentData>, "home", Lang>;
 /** Content for Homepage documents */
 interface HomepageDocumentData {
   /**
@@ -238,95 +175,6 @@ type PageDocumentDataSlicesSlice = HeroSlice | TextSlice;
  */
 export type PageDocument<Lang extends string = string> =
   prismic.PrismicDocumentWithUID<Simplify<PageDocumentData>, "page", Lang>;
-/** Content for Project page documents */
-interface ProjectPageDocumentData {
-  /**
-   * Hero field in *Project page*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: project_page.hero
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  hero: prismic.ImageField<never>;
-  /**
-   * Title field in *Project page*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: *None*
-   * - **API ID Path**: project_page.title
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  title: prismic.KeyTextField;
-  /**
-   * Slice Zone field in *Project page*
-   *
-   * - **Field Type**: Slice Zone
-   * - **Placeholder**: *None*
-   * - **API ID Path**: project_page.slices[]
-   * - **Tab**: Main
-   * - **Documentation**: https://prismic.io/docs/core-concepts/slices
-   *
-   */
-  slices: prismic.SliceZone<ProjectPageDocumentDataSlicesSlice>;
-  /**
-   * Meta Description field in *Project page*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A brief summary of the page
-   * - **API ID Path**: project_page.meta_description
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_description: prismic.KeyTextField;
-  /**
-   * Meta Image field in *Project page*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: project_page.meta_image
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  meta_image: prismic.ImageField<never>;
-  /**
-   * Meta Title field in *Project page*
-   *
-   * - **Field Type**: Text
-   * - **Placeholder**: A title of the page used for social media and search engines
-   * - **API ID Path**: project_page.meta_title
-   * - **Tab**: SEO & Metadata
-   * - **Documentation**: https://prismic.io/docs/core-concepts/key-text
-   *
-   */
-  meta_title: prismic.KeyTextField;
-}
-/**
- * Slice for *Project page → Slice Zone*
- *
- */
-type ProjectPageDocumentDataSlicesSlice = ImgGallerySlice | TextBlockSlice;
-/**
- * Project page document from Prismic
- *
- * - **API ID**: `project_page`
- * - **Repeatable**: `true`
- * - **Documentation**: https://prismic.io/docs/core-concepts/custom-types
- *
- * @typeParam Lang - Language API ID of the document.
- */
-export type ProjectPageDocument<Lang extends string = string> =
-  prismic.PrismicDocumentWithUID<
-    Simplify<ProjectPageDocumentData>,
-    "project_page",
-    Lang
-  >;
 /** Content for Settings documents */
 interface SettingsDocumentData {
   /**
@@ -394,11 +242,9 @@ export type SettingsDocument<Lang extends string = string> =
     Lang
   >;
 export type AllDocumentTypes =
-  | HomeDocument
   | HomepageDocument
   | MenuDocument
   | PageDocument
-  | ProjectPageDocument
   | SettingsDocument;
 /**
  * Primary content in Hero → Primary
@@ -479,83 +325,6 @@ type HeroSliceVariation = HeroSliceDefault;
  *
  */
 export type HeroSlice = prismic.SharedSlice<"hero", HeroSliceVariation>;
-/**
- * Primary content in ImgGallery → Primary
- *
- */
-interface ImgGallerySliceDefaultPrimary {
-  /**
-   * Img field in *ImgGallery → Primary*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: img_gallery.primary.img
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  img: prismic.ImageField<never>;
-}
-/**
- * Default variation for ImgGallery Slice
- *
- * - **API ID**: `default`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
- */
-export type ImgGallerySliceDefault = prismic.SharedSliceVariation<
-  "default",
-  Simplify<ImgGallerySliceDefaultPrimary>,
-  never
->;
-/**
- * Item in ImgGallery → Items
- *
- */
-export interface ImgGallerySliceMultipleImgItem {
-  /**
-   * Img field in *ImgGallery → Items*
-   *
-   * - **Field Type**: Image
-   * - **Placeholder**: *None*
-   * - **API ID Path**: img_gallery.items[].img
-   * - **Documentation**: https://prismic.io/docs/core-concepts/image
-   *
-   */
-  img: prismic.ImageField<never>;
-}
-/**
- * MultipleImg variation for ImgGallery Slice
- *
- * - **API ID**: `multipleImg`
- * - **Description**: `Default`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
- */
-export type ImgGallerySliceMultipleImg = prismic.SharedSliceVariation<
-  "multipleImg",
-  Record<string, never>,
-  Simplify<ImgGallerySliceMultipleImgItem>
->;
-/**
- * Slice variation for *ImgGallery*
- *
- */
-type ImgGallerySliceVariation =
-  | ImgGallerySliceDefault
-  | ImgGallerySliceMultipleImg;
-/**
- * ImgGallery Shared Slice
- *
- * - **API ID**: `img_gallery`
- * - **Description**: `ImgGallery`
- * - **Documentation**: https://prismic.io/docs/core-concepts/reusing-slices
- *
- */
-export type ImgGallerySlice = prismic.SharedSlice<
-  "img_gallery",
-  ImgGallerySliceVariation
->;
 /**
  * Primary content in Text → Primary
  *
@@ -715,9 +484,6 @@ declare module "@prismicio/client" {
   }
   namespace Content {
     export type {
-      HomeDocumentData,
-      HomeDocumentDataSlicesSlice,
-      HomeDocument,
       HomepageDocumentData,
       HomepageDocumentDataSlicesSlice,
       HomepageDocument,
@@ -727,9 +493,6 @@ declare module "@prismicio/client" {
       PageDocumentData,
       PageDocumentDataSlicesSlice,
       PageDocument,
-      ProjectPageDocumentData,
-      ProjectPageDocumentDataSlicesSlice,
-      ProjectPageDocument,
       SettingsDocumentData,
       SettingsDocumentDataNavigationItem,
       SettingsDocument,
@@ -739,12 +502,6 @@ declare module "@prismicio/client" {
       HeroSliceDefault,
       HeroSliceVariation,
       HeroSlice,
-      ImgGallerySliceDefaultPrimary,
-      ImgGallerySliceDefault,
-      ImgGallerySliceMultipleImgItem,
-      ImgGallerySliceMultipleImg,
-      ImgGallerySliceVariation,
-      ImgGallerySlice,
       TextSliceDefaultPrimary,
       TextSliceDefault,
       TextSliceVariation,
